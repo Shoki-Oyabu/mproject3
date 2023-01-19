@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ys$=ss_$tv=ic-8oiefr^a+kr4n4o9jd_xejp(&@-q_f^#f_c@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["shoki-webapp1.onrender.com", '127.0.0.1' , "one2qw.onrender.com"]
+ALLOWED_HOSTS = [ '127.0.0.1' , "one2qw.onrender.com"]
 
 # Application definition
 
@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp.apps.MyappConfig',
-    'yfinance',
-    'matplotlib',
+    'yfinance'
+
 ]
 
 MIDDLEWARE = [
