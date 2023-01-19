@@ -128,8 +128,8 @@ def result(request):
         ohlc.Close.plot(kind='line',
                         title='Stock price chart',
                         legend=True)
-        plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
-        #plt.savefig('/static/chart.png')
+        #plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
+        plt.savefig('/static/chart.png')
 
     except:
         newthing = request.GET["ticker"].upper()
