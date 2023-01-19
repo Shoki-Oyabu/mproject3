@@ -83,3 +83,15 @@ def DBupdate(request):
         pass
 
     return render(request, "DBupdate.html", context=data)
+
+def test(request):
+    import csv
+    from myapp.models import Stock
+    with open( STATICFILES_DIRS, "/List_Equities.csv") as file:
+        reader = csv.reader(file)
+        next(reader)
+        for row in reader:
+            stock = Stock(tick=row[0], name=row[1],country=row[2] , IPO=row[3] , sector=row[4])
+            stock.save()
+
+    return render(request, "test.html")

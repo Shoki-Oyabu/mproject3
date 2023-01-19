@@ -24,5 +24,6 @@ urlpatterns = [
     # path('maintenance', views.maintenance, name='maintenance'),
     path("DBsearch", views.DBsearch, name="DBsearch"),
     path("DBupdate", views.DBupdate, name="DBupdate"),
+    path("test", views.test, name="test"),
 
 ]
