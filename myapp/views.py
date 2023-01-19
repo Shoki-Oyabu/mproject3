@@ -93,10 +93,7 @@ def test(request):
     import csv
     from myapp.models import Stock
 
-    for x in Stock.objects.all():
-        x.delete()
-
-    with open(STATICFILES_DIR , "/List_Equities.csv") as file:
+    with open("static/List_Equities.csv") as file:
         reader = csv.reader(file)
         next(reader)
         for row in reader:
