@@ -1,25 +1,29 @@
 {% load static %}
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Stock Search</title>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
 </head>
 <body>
-<br><center> <h1 class="lobster">Stock Search</h1></center><br>
+<br><center> <h3 style="color: coral;
+    font-family: 'lobster';
+    font-size:70px;">Stock Search</h3></center><br>
 {% block content %}
 
 {% endblock %}
 
 <br><center><a href="{% url 'home' %}">Home</a><br></center>
 
-<div id="footer">
+<center>
+<br>
+    <div id="footer">
         ©2023 Columbia Business School. All Rights Reserved
 </div>
+</center>
 </body>
 </html>

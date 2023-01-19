@@ -3,13 +3,16 @@ import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from mproject2.settings import STATICFILES_DIRS
+from mproject2.settings import STATICFILES_DIR
 
 
 # Create your views here.
 
 def home(request):
+    from myapp.models import Stock
     data = dict()
+    ticker_list = Stock.objects.all()
+    data["ticker_list"] = ticker_list
     try:
         ticker = request.GET['ticker']
         if len(ticker) > 0:
@@ -43,7 +46,7 @@ def DBsearch(request):
     data["ticker_list"] = ticker_list
 
     try:
-        search = request.GET['search']
+        search = request.GET['search'].upper()
         result = Stock.objects.get(tick=search)
         data['s_ticker'] = result.tick
         data['s_name'] = result.name
@@ -89,7 +92,11 @@ def DBupdate(request):
 def test(request):
     import csv
     from myapp.models import Stock
-    with open(STATICFILES_DIRS, "/List_Equities.csv") as file:
+
+    for x in Stock.objects.all():
+        x.delete()
+
+    with open(STATICFILES_DIR + "/List_Equities.csv") as file:
         reader = csv.reader(file)
         next(reader)
         for row in reader:
@@ -99,5 +106,27 @@ def test(request):
     return render(request, "test.html")
 
 def assignment(request):
+    from myapp.models import Stock
+    data = dict()
+    ticker_list = Stock.objects.all()
+    data["ticker_list"] = ticker_list
+    return render(request, "assignment.html", context=data)
 
-    return render(request, "assignment.html")
+def result(request):
+    from myapp.models import Stock
+    data = dict()
+    ticker_list = Stock.objects.all()
+    data["ticker_list"] = ticker_list
+
+    try:
+        query = request.GET["ticker"].upper()
+        result = Stock.objects.get(tick=query)
+        data['ticker'] = query
+        data['name'] = result.name
+    except:
+        newthing = request.GET["ticker"].upper()
+        data['ticker'] = newthing
+        return render(request, "notfound.html", context=data)
+        pass
+
+    return render(request, "result.html", context=data)

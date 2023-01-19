@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+The ticker you entered is {{ ticker }}.<br>
+This ticker is not in the database.<br>
+
+<br><a href="{% url 'DBsearch' %}">Ticker Search</a><br>
+<a href="{% url 'DBupdate' %}">Update Database</a><br><br>
+
+{% endblock %}
+</body>
+</html>

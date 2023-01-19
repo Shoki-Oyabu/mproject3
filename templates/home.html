@@ -11,23 +11,37 @@
 {% block content %}
 <center>
 
+<div class=" text-center">
+        <h3>Enter a ticker code!</h3>
+    </div><br>
 
 <p></p>
-    <form>
+    <form action="{% url 'result' %}" method="get">
         <label for="ticker">Ticker: </label>
-        <input type="text" id="ticker" name="ticker" value=""><br>
-         <label for="name">Name : </label>
-        <input type="text" id="name" name="name" value=""><br>
-
-
+        <input type="text" id="ticker" name="ticker" size="40"><br>
     </form><br><br>
 
+<div class="container">
+    <div class="columns">
 
-<a href="{% url 'DBsearch' %}">Ticker Search</a><br>
-<a href="{% url 'DBupdate' %}">Update Database</a><br><br>
+                   Ticker List<br>
+                <select class="form-control d-inline-block" name="ticker" >
+                        {% for stock in ticker_list %}
+                       <option value="{{ stock.name }}">{{ stock.tick }}</option>
+                         {% endfor %}
+                </select>
+ </div>
+</div><br>
 
 
-The current time is {{  time_of_day }}
+
+                <a href="{% url 'DBsearch' %}">Ticker Search</a><br>
+
+                    <a href="{% url 'DBupdate' %}">Update Database</a><br>
+
+
+
+<br>The current time is {{  time_of_day }}
 </center>
 {% endblock %}
 </body>

@@ -61,17 +61,3 @@ for x in dic:
 
 # print(df['CONTENT'])
 """
-from mproject2.settings import STATICFILES_DIRS
-
-("how to upload CSV!\"!!\n"
- "    import csv\n"
- "    from myapp.models import Stock\n"
- "\n"
- "    # with open(r\"C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\List_Equities.csv\") as file:\n"
- """
-         reader = csv.reader(file)
-         next(reader)
-         for row in reader:\n"
-            stock = Stock(tick=row[0], name=row[1],country=row[2] , IPO=row[3] , sector=row[4])\n"
-             stock.save()\n")
-"""
