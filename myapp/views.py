@@ -104,7 +104,7 @@ def assignment(request):
 def result(request):
     from myapp.models import Stock
     # import yfinance as yf
-    import matplotlib.pyplot as plt
+    # import matplotlib.pyplot as plt
 
     data = dict()
     ticker_list = Stock.objects.all()
