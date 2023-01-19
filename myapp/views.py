@@ -89,7 +89,7 @@ def DBupdate(request):
 def test(request):
     import csv
     from myapp.models import Stock
-    with open( STATICFILES_DIRS, "List_Equities.csv") as file:
+    with open( STATICFILES_DIRS, "/List_Equities.csv") as file:
         reader = csv.reader(file)
         next(reader)
         for row in reader:
