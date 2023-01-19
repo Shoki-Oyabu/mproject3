@@ -102,7 +102,6 @@ def assignment(request):
     return render(request, "assignment.html", context=data)
 
 def result(request):
-    pip install yfinance
     from myapp.models import Stock
     import yfinance as yf
     import matplotlib.pyplot as plt
