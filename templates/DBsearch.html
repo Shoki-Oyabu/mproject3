@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DB Search</title>
+
+<style>
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+
+}
+
+td {
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+
+
+<h1>Database Search</h1>
+
+<form action="" method="get">
+    <h3>Search by ticker symbol</h3>
+    <label for="ticker">Ticker: </label>
+    <input type="text" id="search" name="search" value=""><br>
+
+</form><br>
+
+<h2>Search Result</h2><br>
+
+<table><tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>IPO Year</th>
+        <th>Sector</th>
+    </tr>
+    <tr>
+    <th>{{ s_ticker }}</th>
+        <th>{{ s_name }}</th>
+        <th>{{ s_country }}</th>
+        <th>{{ s_IPO }}</th>
+        <th>{{ s_sector }}</th>
+</tr></table><br>
+
+
+
+<h2>CurrentDatabase</h2><br>
+This database is created based on the csv file downloaded <a href = "https://www.nasdaq.com/market-activity/stocks/screener"> here</a>.<br><br>
+<br>
+
+<table>
+    <tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>IPO Year</th>
+        <th>Sector</th>
+    </tr>
+    {% for c in ticker_list %}
+    <tr>
+    <td>{{ c.tick }}</td><td>{{ c.name }}</td><td>{{ c.country }}</td><td>{{ c.IPO }}</td><td>{{ c.sector }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>

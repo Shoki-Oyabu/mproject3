@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DB Update</title>
+
+<style>
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  }
+
+td {
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<h1>Update the Database</h1>
+
+Please enter the ticker code, the name of the company, Country, IPO year, and the sector of a new company.
+
+<br>
+<br>
+
+<table>
+<form action="" method="get">
+    <tr><td><label for="Ticker">Ticker: </label></td>
+    <td><input type="text" id="Ticker" name="Ticker" value=""></td></tr>
+ <tr><td><label for="Name">Name: </label></td>
+    <td><input type="text" id="Name" name="Name" value=""></td></tr>
+ <tr><td><label for="Country">Country: </label></td>
+    <td><input type="text" id="Country" name="Country" value=""></td></tr>
+ <tr><td><label for="IPOY">IPO year: </label></td>
+    <td><input type="text" id="IPOY" name="IPOY" value=""></td></tr>
+ <tr><td><label for="Sector">Sector: </label></td>
+    <td><input type="text" id="Sector" name="Sector" value=""></td></tr>
+</table><br>
+<input name="form_submitted" value="1" type="hidden">
+    <input name="update" value="Add to the database" type="submit">
+</form><br>
+
+<h2>{{ result }}</h2><br>
+
+<table><tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>IPO Year</th>
+        <th>Sector</th>
+    </tr>
+    <tr>
+    <th>{{ ticker }}</th>
+        <th>{{ name }}</th>
+        <th>{{ country }}</th>
+        <th>{{ IPO }}</th>
+        <th>{{ sector }}</th>
+</tr></table><br>
+
+
+
+<h2>CurrentDatabase</h2><br>
+This database is created based on the csv file downloaded <a href = "https://www.nasdaq.com/market-activity/stocks/screener"> here</a>.<br><br>
+<br>
+
+<table>
+    <tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>IPO Year</th>
+        <th>Sector</th>
+    </tr>
+    {% for c in ticker_list %}
+    <tr>
+    <td>{{ c.tick }}</td><td>{{ c.name }}</td><td>{{ c.country }}</td><td>{{ c.IPO }}</td><td>{{ c.sector }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>

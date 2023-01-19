@@ -88,7 +88,7 @@ DATABASES = {
 
 DATABASES = {
         'default': dj_database_url.config(
-            default="postgresql://postgres:postgres@localhost:5432/shoki-webapp1",
+            default="postgresql://postgres:shoki2677@localhost:5432/webapp1",
             conn_max_age=600)}
 
 
