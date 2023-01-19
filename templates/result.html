@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{%  load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +36,12 @@
     <div class="col-sm-6">
         <div class="form-group">
 
-         <img src='{% static "myapp/excuse.png" %}' >
+        <img src='{% static "myapp/logo.png" %}' alt="image">
+        <img src='{% static "myapp/excuse.png" %}' >
+             <img src='{% static "/myapp/excuse.png" %}' >
+         <img src='{% static "myapp\excuse.png" %}' >
+            <img src='{% static "\myapp\excuse.png" %}' >
+        <img src='{% static "excuse.png" %}' alt="image" >
 
         </div>
     </div>
