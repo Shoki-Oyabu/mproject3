@@ -3,6 +3,8 @@ import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from mproject2.settings import STATICFILES_DIRS
+
 
 # Create your views here.
 
