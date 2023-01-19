@@ -97,3 +97,7 @@ def test(request):
             stock.save()
 
     return render(request, "test.html")
+
+def assignment(request):
+
+    return render(request, "assignment.html")

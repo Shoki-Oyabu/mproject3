@@ -1,14 +1,16 @@
-{%  load static %}
+{% extends "base.html" %}
 <!DOCTYPE html>
+{%  load static %}
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <title>Stock Info</title>
 </head>
 <body>
+
+{% block content %}
 <center>
-<p style="font-family:Copperplate Gothic; color:Blue; font-size: 40px;">Stock Search</p>
+
 
 <p></p>
     <form>
@@ -18,12 +20,15 @@
         <input type="text" id="name" name="name" value=""><br>
 
 
-    </form>
+    </form><br><br>
 
 
+<a href="{% url 'DBsearch' %}">Ticker Search</a><br>
+<a href="{% url 'DBupdate' %}">Update Database</a><br><br>
 
 
 The current time is {{  time_of_day }}
 </center>
+{% endblock %}
 </body>
 </html>
