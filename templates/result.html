@@ -4,12 +4,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+  </head>
 <body>
 {% block content %}
-query was {{ ticker }}<br>
-{{ name }}
+
+<div class="container">
+    <div class="columns">
+        <div class="col-sm-6">
+            <div class="tabular">
+<table border="1"">
+    <center>
+    <tr><th align="center">Ticker</th><th>{{ ticker }}</th></tr>
+    <tr align="center"><th>Name</th><th>{{ name }}</th></tr>
+    <tr align="center"><th>Country</th><th>{{ country }}</th></tr>
+    <tr align="center"><th>Sector</th><th>{{ sector }}</th></tr>
+    <tr align="center"><th>Market Cap</th><th>{{ market_cap }}</th></tr>
+    <tr align="center"><th>Open</th><th>{{ open }}</th></tr>
+    <tr align="center"><th>High</th><th>{{ high }}</th></tr>
+    <tr align="center"><th>Low</th><th>{{ low }}</th></tr>
+    <tr align="center"><th>Close</th><th>{{ close }}</th></tr>
+    </center>
+</table>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+
+         <img src='{% static "chart.png" %}' >
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<p>
+    You have looked at the following stocks: <br>
+    {% for c in stocks_visited %}
+    {{ c.tick }}<br>
+    {% endfor %}
+    </p>
 
 {% endblock %}
 </body>

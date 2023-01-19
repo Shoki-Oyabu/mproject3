@@ -1,27 +1,19 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
 from mproject2.settings import STATICFILES_DIR
+from myapp.models import AccountHolder
 
-
-# Create your views here.
 
 def home(request):
     from myapp.models import Stock
     data = dict()
     ticker_list = Stock.objects.all()
     data["ticker_list"] = ticker_list
-    try:
-        ticker = request.GET['ticker']
-        if len(ticker) > 0:
-            return HttpResponseRedirect(reverse('ticker'))
-    except:
-        pass
 
 
-    data["time_of_day"] = datetime.datetime.now()
     return render(request, "home.html", context=data)
 
 """def maintenance(request):
@@ -93,13 +85,13 @@ def test(request):
     import csv
     from myapp.models import Stock
 
-    with open("static/List_Equities.csv") as file:
-        reader = csv.reader(file)
-        next(reader)
-        for row in reader:
-            stock = Stock(tick=row[0], name=row[1],country=row[2] , IPO=row[3] , sector=row[4])
-            stock.save()
 
+#    with open("/static/List_Equities.csv") as file:
+#        reader = csv.reader(file)
+#        next(reader)
+#        for row in reader:
+#            stock = Stock(tick=row[0], name=row[1],country=row[2] , IPO=row[3] , sector=row[4])
+#            stock.save()
     return render(request, "test.html")
 
 def assignment(request):
@@ -111,19 +103,62 @@ def assignment(request):
 
 def result(request):
     from myapp.models import Stock
+    import yfinance as yf
+    import matplotlib.pyplot as plt
+
     data = dict()
     ticker_list = Stock.objects.all()
     data["ticker_list"] = ticker_list
 
     try:
         query = request.GET["ticker"].upper()
-        result = Stock.objects.get(tick=query)
+        found = Stock.objects.get(tick=query)
         data['ticker'] = query
-        data['name'] = result.name
+        data['name'] = found.name
+        data['sector'] = found.sector
+        data['country'] = found.country
+        num_shares = yf.Ticker(query).shares.iloc[-1, 0]
+        ohlc = yf.Ticker(query).history(period='100d')
+        data['market_cap'] = round(num_shares * ohlc.Close[-1])
+        data['open'] = round(ohlc.Open[-1],2)
+        data['high'] = round(ohlc.High[-1],2)
+        data['low'] = round(ohlc.Low[-1],2)
+        data['close'] = round(ohlc.Close[-1],2)
+        plt.clf()
+        ohlc.Close.plot(kind='line',
+                        title='Stock price chart',
+                        legend=True)
+        plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
+        #plt.savefig('/static/chart.png')
+
     except:
         newthing = request.GET["ticker"].upper()
         data['ticker'] = newthing
         return render(request, "notfound.html", context=data)
         pass
 
+    try:
+        user = request.user
+        if user.is_authenticated:
+            account_holder = AccountHolder.objects.get(user=user)
+            account_holder.stocks_visited.add(query)
+            data['stocks_visited'] = account_holder.stocks_visited.all()
+    except:
+        pass
+
     return render(request, "result.html", context=data)
+
+
+def register_new_user(request):
+    context = dict()
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        new_user = form.save()
+        dob = request.POST["dob"]
+        acct_holder = AccountHolder(user=new_user,date_of_birth=dob)
+        acct_holder.save()
+        return render(request,"home.html",context=context)
+    else:
+        form = UserCreationForm()
+        context['form'] = form
+        return render(request, "registration/register.html", context=context)

@@ -1,7 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-
-# Create your models here.
 
 class Stock(models.Model):
     tick = models.CharField(max_length=200)
@@ -48,3 +47,13 @@ class Rates(models.Model):
 
     def __str__(self):
         return self.currency.iso + " " + self.x_currency + " " + str(self.rate)
+
+
+class AccountHolder(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    date_of_birth = models.DateField()
+    stocks_visited = models.ManyToManyField(Stock)
+    def __str__(self):
+        return self.user.username
+    def __repr__(self):
+        return self.user.username

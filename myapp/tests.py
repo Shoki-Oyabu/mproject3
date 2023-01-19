@@ -9,7 +9,7 @@ data = {}
 ticker = "MMM"
 
 # get the current price
-ohlc = yf.Ticker(ticker).history(period='1d')
+ohlc = yf.Ticker(ticker).history(period='100d')
 data['current_price'] = ohlc['Close'][0]
 
 # get stock info
@@ -61,3 +61,44 @@ for x in dic:
 
 # print(df['CONTENT'])
 """
+
+
+
+def get_currency_list():
+    currency_list = list()
+    import requests
+    from bs4 import BeautifulSoup
+    url = "https://thefactfile.org/countries-currencies-symbols/"
+    response = requests.get(url)
+    if not response.status_code == 200:
+        return currency_list
+    soup = BeautifulSoup(response.content, features="lxml")
+    data_lines = soup.find_all('tr')
+    for line in data_lines:
+        try:
+            detail = line.find_all('td')
+            currency = detail[2].get_text().strip()
+            iso = detail[3].get_text().strip()
+            if (currency,iso) in currency_list:
+                continue
+            currency_list.append((currency,iso))
+        except:
+            continue
+
+        print(currency_list)
+    return currency_list
+
+def add_currencies(currency_list):
+    for currency in currency_list:
+        currency_name = currency[0]
+        currency_symbol = currency[1]
+    try:
+        c = Currency.objects.get(iso=currency_symbol)
+    except:
+        c = Currency(long_name=currency_name, iso=currency_symbol)
+        c.save()
+
+
+
+
+data["time_of_day"] = datetime.datetime.now()

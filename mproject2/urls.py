@@ -17,16 +17,21 @@ from django.contrib import admin
 from django.urls import path
 
 from myapp import views
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path("", views.home, name="home"),
+    path('home',views.home, name='home'),
     # path('maintenance', views.maintenance, name='maintenance'),
     path("DBsearch", views.DBsearch, name="DBsearch"),
     path("DBupdate", views.DBupdate, name="DBupdate"),
     path("test", views.test, name="test"),
     path("assignment", views.assignment, name="assignment"),
     path("result", views.result, name="result"),
-    path("notfound", views.result, name="notfound")
+    path("notfound", views.result, name="notfound"),
+    path('register',views.register_new_user,name="register_user"),
+
 
 ]

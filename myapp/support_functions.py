@@ -1,36 +1,20 @@
-from myapp.models import Currency
+def getmarketdata(ticker):
+    import yfinance as yf
+    import matplotlib.pyplot as plt
 
+    num_shares = yf.Ticker(ticker).shares.iloc[-1,0]
+    ohlc = yf.Ticker(ticker).history(period='100d')
+    market_cap = num_shares * ohlc.Close[-1]
+    open = ohlc.Open[-1]
+    high = ohlc.High[-1]
+    low = ohlc.Low[-1]
+    close = ohlc.Close[-1]
 
-def get_currency_list():
-    currency_list = list()
-    import requests
-    from bs4 import BeautifulSoup
-    url = "https://thefactfile.org/countries-currencies-symbols/"
-    response = requests.get(url)
-    if not response.status_code == 200:
-        return currency_list
-    soup = BeautifulSoup(response.content, features="lxml")
-    data_lines = soup.find_all('tr')
-    for line in data_lines:
-        try:
-            detail = line.find_all('td')
-            currency = detail[2].get_text().strip()
-            iso = detail[3].get_text().strip()
-            if (currency,iso) in currency_list:
-                continue
-            currency_list.append((currency,iso))
-        except:
-            continue
+    ohlc.Close.plot(kind='line',
+                    title='Stock price chart',
+                    legend=True)
+    # When local, use plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
+    plt.savefig('/static/chart.png')
 
-        print(currency_list)
-    return currency_list
+    return(open, high, low, close, market_cap)
 
-def add_currencies(currency_list):
-    for currency in currency_list:
-        currency_name = currency[0]
-        currency_symbol = currency[1]
-    try:
-        c = Currency.objects.get(iso=currency_symbol)
-    except:
-        c = Currency(long_name=currency_name, iso=currency_symbol)
-        c.save()
