@@ -102,6 +102,10 @@ def result(request):
     import yfinance as yf
     import matplotlib
     import matplotlib.pyplot as plt
+    from django.shortcuts import render
+    import matplotlib.pyplot as plt
+    import io
+    import urllib, base64
 
     data = dict()
     ticker_list = Stock.objects.all()
@@ -125,8 +129,20 @@ def result(request):
         chart_title = found.name + ' price chart'
         plt.clf()
         ohlc.Close.plot(kind='line', title=chart_title, legend=True)
-        plt.savefig("/static/chart111.png")
+        fig = plt.gcf()
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+        string = base64.b64encode(buf.read())
+        uri = urllib.parse.quote(string)
+        #plt.savefig("/static/chart111.png")
         # plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
+        data['uri'] = uri
+
+
+
+
+
 
         user = request.user
 
