@@ -28,7 +28,6 @@ urlpatterns = [
     path("DBsearch", views.DBsearch, name="DBsearch"),
     path("DBupdate", views.DBupdate, name="DBupdate"),
     path("test", views.test, name="test"),
-    path("assignment", views.assignment, name="assignment"),
     path("result", views.result, name="result"),
     path("notfound", views.result, name="notfound"),
     path('register',views.register_new_user,name="register_user"),
