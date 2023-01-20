@@ -120,11 +120,11 @@ def result(request):
         data['high'] = round(ohlc.High[-1],2)
         data['low'] = round(ohlc.Low[-1],2)
         data['close'] = round(ohlc.Close[-1],2)
-        plt.clf()
-        ohlc.Close.plot(kind='line',
-                       title=found.name + ' price chart',
-                      legend=True)
-        plt.savefig('/static/chart.png')
+        #plt.clf()
+        #ohlc.Close.plot(kind='line',
+        #               title=found.name + ' price chart',
+        #              legend=True)
+        #plt.savefig('/static/chart.png')
          #plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
 
         user = request.user
