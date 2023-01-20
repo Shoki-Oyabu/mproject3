@@ -8,12 +8,12 @@
 <body>
 {% block content %}
  <div class="jumbotron text-center">
-        {{ ticker }}
+       <p> {{ ticker }} </p>
     </div>
 
-<div class="container">
+<div class="container" >
 
-<table border="1">
+<table border="1" align="center">
 
     <tr><th align="center">Ticker</th><th>{{ ticker }}</th></tr>
     <tr align="center"><th>Name</th><th>{{ name }}&nbsp;</th></tr>
@@ -43,7 +43,7 @@
     Add share(s) to the portfolio
 
  <form action="{% url 'added' %}" method="get">
-    <a>Number of share(s) to add</a><br>
+    Number of share(s) to add<br>
     <input type="text" name="target" id="target" value="{{ ticker }}" readonly ><br>
     <input type="number" name="sharenum" id="sharenum" value="" ><br>
     <input type="submit" name="submit" value="Add to the portfolio">

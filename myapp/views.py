@@ -178,9 +178,18 @@ def added(request):
 
     else:
         return render(request, "usernotfound.html", context=data)
+        pass
 
     return render(request, "added.html", context=data)
 
 def usernotfound(request):
     data = dict()
     return render(request, "usernotfound.html", context=data)
+
+def portfolio(request):
+    data = dict()
+    return render(request, "portfolio.html", context=data)
+
+def backtest(request):
+    data = dict()
+    return render(request, "backtest.html", context=data)
