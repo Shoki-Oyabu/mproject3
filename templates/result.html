@@ -8,43 +8,63 @@
 <body>
 {% block content %}
  <div class="jumbotron text-center">
-        <p>Search Result</p>
+        {{ ticker }}
     </div>
 
 <div class="container">
-    <div class="columns">
-        <div class="col-sm-6">
-            <div class="tabular">
+
 <table border="1">
-    <center>
+
     <tr><th align="center">Ticker</th><th>{{ ticker }}</th></tr>
     <tr align="center"><th>Name</th><th>{{ name }}&nbsp;</th></tr>
     <tr align="center"><th>Country</th><th>{{ country }}</th></tr>
     <tr align="center"><th>Sector</th><th>{{ sector }}&nbsp;</th></tr>
-    <tr align="center"><th>Market Cap &nbsp;</th><th>{{ market_cap }}&nbsp;</th></tr>
-    <tr align="center"><th>Open</th><th>{{ open }}</th></tr>
-    <tr align="center"><th>High</th><th>{{ high }}</th></tr>
-    <tr align="center"><th>Low</th><th>{{ low }}</th></tr>
-    <tr align="center"><th>Close</th><th>{{ close }}</th></tr>
-    </center>
+    <tr align="center"><th>Market Cap &nbsp;</th><th>$ {{ market_cap }} million&nbsp;</th></tr>
+    <tr align="center"><th>Open</th><th>$ {{ open }}</th></tr>
+    <tr align="center"><th>High</th><th>$ {{ high }}</th></tr>
+    <tr align="center"><th>Low</th><th>$ {{ low }}</th></tr>
+    <tr align="center"><th>Close</th><th>$ {{ close }}</th></tr>
+
 </table>
 
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
 
-               <img src="data:image/png;base64,{{ uri }}" >
+</div>
+    <div class="container">
 
-    </div>
+          <center><img src="data:image/png;base64,{{ uri }}" ></center>
 </div>
 
-<p>
-    You have looked at the following stocks: <br>
-    {% for c in stocks_visited %}
-    {{ c }}<br>
-    {% endfor %}
-    </p>
+<div class="jumbotron text-center">
+        <p>Add to Your Portfolio</p>
+    </div>
+
+ <div class="container">
+
+    Add share(s) to the portfolio
+
+ <form action="{% url 'added' %}" method="get">
+    <a>Number of share(s) to add</a><br>
+    <input type="text" name="target" id="target" value="{{ ticker }}" readonly ><br>
+    <input type="number" name="sharenum" id="sharenum" value="" ><br>
+    <input type="submit" name="submit" value="Add to the portfolio">
+ </form>
+
+ </div>
+
+
+
+<script>
+function update() {
+    var Value =parseFloat(document.getElementsByName("sharenum").value);
+    if (Value >= 0)
+    return true
+    else {
+        alert("The value must be positive.")
+        tag.value = 0
+        return false
+        }
+}
+</script>
 
 {% endblock %}
 </body>

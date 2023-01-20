@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Stock Info</title>
+
 </head>
 <body>
 
@@ -18,14 +18,14 @@
 <p></p>
     <form action="{% url 'result' %}" method="get">
         <label for="ticker">Ticker: </label>
-        <input type="text" id="ticker" name="ticker" size="40"><br>
+        <input type="text" id="ticker" name="ticker" size="40" autocapitalize="on" ><br>
     </form><br><br>
 
 <div class="container">
     <div class="columns">
 
                    Ticker List<br>
-                <select class="form-control d-inline-block" name="ticker" >
+                <select class="form-control d-inline-block" name="ticker"  >
                         {% for stock in ticker_list %}
                        <option value="{{ stock.name }}">{{ stock.tick }}</option>
                          {% endfor %}
@@ -37,12 +37,15 @@
 
     <a href="{% url 'DBsearch' %}">Ticker Search</a><br>
 
-    <a href="{% url 'DBsearch' %}">User Registration</a><br>
+    <a href="{% url 'register_user' %}">User Registration</a><br>
 
     <a href="{% url 'DBupdate' %}">Update Database</a><br>
 
 
 </center>
+
+
+
 {% endblock %}
 </body>
 </html>

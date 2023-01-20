@@ -52,7 +52,8 @@ class Rates(models.Model):
 class AccountHolder(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     date_of_birth = models.DateField()
-    stocks_visited = models.ManyToManyField(Stock)
+    stocks_holding = models.ManyToManyField(Stock)
+    num_shares = models.FloatField(default=0.0)
     def __str__(self):
         return self.user.username
     def __repr__(self):

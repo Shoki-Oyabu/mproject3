@@ -8,12 +8,12 @@
 </head>
 <body>
 {% block content %}
-The ticker you entered is {{ ticker }}.<br>
+<center>The ticker you entered is {{ ticker }}.<br>
 This ticker is not in the database.<br>
 
 <br><a href="{% url 'DBsearch' %}">Ticker Search</a><br>
 <a href="{% url 'DBupdate' %}">Update Database</a><br><br>
-
+</center>
 {% endblock %}
 </body>
 </html>

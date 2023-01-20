@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+ <div class="jumbotron text-center">
+        <p>Successfully added to the portfolio!</p>
+    </div>
+Your portfolio
+<table>
+    <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
+    {% for c in account_holder %}
+    <tr>
+    <td>&nbsp;{{ account_holder.stocks_holding }}&nbsp;</td><td>{{ account_holder.num_shares }}</td><td>
+    </tr>
+    {% endfor %}
+
+
+</table>
+</body>
+</html>

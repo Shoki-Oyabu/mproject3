@@ -7,7 +7,7 @@ from django.urls import reverse
 from mproject2.settings import STATICFILES_DIRS
 from django.contrib.auth.models import User
 from myapp import support_functions
-from myapp.models import AccountHolder
+from myapp.models import AccountHolder, Stock
 
 
 def home(request):
@@ -100,8 +100,6 @@ def test(request):
 def result(request):
     from myapp.models import Stock
     import yfinance as yf
-    import matplotlib
-    import matplotlib.pyplot as plt
     from django.shortcuts import render
     import matplotlib.pyplot as plt
     import io
@@ -120,13 +118,13 @@ def result(request):
         data['country'] = found.country
         num_shares = yf.Ticker(query).shares.iloc[-1, 0]
         ohlc = yf.Ticker(query).history(period='100d')
-        data['market_cap'] = round(num_shares * ohlc.Close[-1])
+        data['market_cap'] = round(num_shares * ohlc.Close[-1]/1000000)
         data['open'] = round(ohlc.Open[-1],2)
         data['high'] = round(ohlc.High[-1],2)
         data['low'] = round(ohlc.Low[-1],2)
         data['close'] = round(ohlc.Close[-1],2)
 
-        chart_title = found.name + ' price chart'
+        chart_title = found.name + ' Price Chart'
         plt.clf()
         ohlc.Close.plot(kind='line', title=chart_title, legend=True)
         fig = plt.gcf()
@@ -139,26 +137,11 @@ def result(request):
         # plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
         data['uri'] = uri
 
-
-
-
-
-
-        user = request.user
-
-        if user.is_authenticated:
-            account_holder = AccountHolder.objects.get(user=user)
-            account_holder.stocks_visited.add(Stock.objects.get(tick=query))
-            data['stocks_visited'] = account_holder.stocks_visited.all()
     except:
         newthing = request.GET["ticker"].upper()
         data['ticker'] = newthing
         return render(request, "notfound.html", context=data)
         pass
-
-
-
-
 
     return render(request, "result.html", context=data)
 
@@ -179,3 +162,25 @@ def register_new_user(request):
         form = UserCreationForm()
         context['form'] = form
         return render(request, "registration/register.html", context=context)
+
+def added(request):
+    from myapp.models import Stock
+    data = dict()
+    user = request.user
+    target = request.GET["target"]
+    if user.is_authenticated:
+        account_holder = AccountHolder.objects.get(user=user)
+        account_holder.stocks_holding.add(Stock.objects.get(tick=target))
+        account_holder.num_shares.add(request.GET["sharenum"])
+        data['holding'] = account_holder.stocks_holding.all()
+        data['num_shares'] = account_holder.num_shares.all()
+        data['account_holder'] = account_holder
+
+    else:
+        return render(request, "usernotfound.html", context=data)
+
+    return render(request, "added.html", context=data)
+
+def usernotfound(request):
+    data = dict()
+    return render(request, "usernotfound.html", context=data)

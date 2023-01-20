@@ -30,6 +30,8 @@ urlpatterns = [
     path("result", views.result, name="result"),
     path("notfound", views.result, name="notfound"),
     path('register',views.register_new_user,name="register_user"),
+    path('added',views.added,name="added"),
+    path('usernotfound',views.usernotfound,name="usernotfound"),
     # path('map',views.map,name='map'),
 
 
