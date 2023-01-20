@@ -113,17 +113,17 @@ def result(request):
         data['name'] = found.name
         data['sector'] = found.sector
         data['country'] = found.country
-        num_shares = yf.Ticker(query).shares.iloc[-1, 0]
-        ohlc = yf.Ticker(query).history(period='100d')
-        data['market_cap'] = round(num_shares * ohlc.Close[-1])
-        data['open'] = round(ohlc.Open[-1],2)
-        data['high'] = round(ohlc.High[-1],2)
-        data['low'] = round(ohlc.Low[-1],2)
-        data['close'] = round(ohlc.Close[-1],2)
+        #num_shares = yf.Ticker(query).shares.iloc[-1, 0]
+        #ohlc = yf.Ticker(query).history(period='100d')
+        #data['market_cap'] = round(num_shares * ohlc.Close[-1])
+        #data['open'] = round(ohlc.Open[-1],2)
+        #data['high'] = round(ohlc.High[-1],2)
+        #data['low'] = round(ohlc.Low[-1],2)
+        #data['close'] = round(ohlc.Close[-1],2)
         # plt.clf()
         # ohlc.Close.plot(kind='line',
-         #               title='Stock price chart',
-          #              legend=True)
+        #               title=found.name + ' price chart',
+        #              legend=True)
         # plt.savefig('/static/chart.png')
         # plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
 
