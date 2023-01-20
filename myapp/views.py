@@ -100,6 +100,7 @@ def test(request):
 def result(request):
     from myapp.models import Stock
     import yfinance as yf
+    import matplotlib
     import matplotlib.pyplot as plt
 
     data = dict()
@@ -120,12 +121,6 @@ def result(request):
         data['high'] = round(ohlc.High[-1],2)
         data['low'] = round(ohlc.Low[-1],2)
         data['close'] = round(ohlc.Close[-1],2)
-        #plt.clf()
-        #ohlc.Close.plot(kind='line',
-        #               title=found.name + ' price chart',
-        #              legend=True)
-        #plt.savefig('/static/chart.png')
-         #plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
 
         user = request.user
 
@@ -137,6 +132,17 @@ def result(request):
         newthing = request.GET["ticker"].upper()
         data['ticker'] = newthing
         return render(request, "notfound.html", context=data)
+        pass
+
+    try:
+        plt.clf()
+        ohlc.Close.plot(kind='line',
+                        title=found.name + ' price chart',
+                        legend=True)
+        plt.savefig('/static/chart.png')
+        # plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
+
+    except:
         pass
 
     return render(request, "result.html", context=data)
