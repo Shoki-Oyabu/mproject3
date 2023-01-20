@@ -90,6 +90,8 @@ DATABASES = {
         'default': dj_database_url.config(
             default="postgresql://postgres:shoki2677@localhost:5432/one2qw.onrender.com",
 
+            # default="postgresql://postgres:shoki2677@localhost:5432/one2qw",
+
             conn_max_age=600)}
 
 
