@@ -32,7 +32,7 @@ urlpatterns = [
     path("result", views.result, name="result"),
     path("notfound", views.result, name="notfound"),
     path('register',views.register_new_user,name="register_user"),
-    path('map',views.map,name='map'),
+    # path('map',views.map,name='map'),
 
 
 ]

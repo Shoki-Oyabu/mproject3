@@ -6,7 +6,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from mproject2.settings import STATICFILES_DIRS
 from django.contrib.auth.models import User
-
 from myapp import support_functions
 from myapp.models import AccountHolder
 
@@ -16,7 +15,6 @@ def home(request):
     data = dict()
     ticker_list = Stock.objects.all()
     data["ticker_list"] = ticker_list
-
 
     return render(request, "home.html", context=data)
 
@@ -98,12 +96,6 @@ def test(request):
 #            stock.save()
     return render(request, "test.html")
 
-def assignment(request):
-    from myapp.models import Stock
-    data = dict()
-    ticker_list = Stock.objects.all()
-    data["ticker_list"] = ticker_list
-    return render(request, "assignment.html", context=data)
 
 def result(request):
     from myapp.models import Stock
@@ -155,6 +147,9 @@ def result(request):
     return render(request, "result.html", context=data)
 
 
+
+
+
 def register_new_user(request):
     context = dict()
     form = UserCreationForm(request.POST)
@@ -168,43 +163,3 @@ def register_new_user(request):
         form = UserCreationForm()
         context['form'] = form
         return render(request, "registration/register.html", context=context)
-
-def map(request):
-    m = folium.Map() #add import folium at the top of views.py
-    data = dict()
-    try:
-        number_of_cities = int(request.GET["number_of_cities"])
-        if number_of_cities > 0:
-            names = list()
-            for i in range(number_of_cities):
-                names.append("city"+str(i))
-            data['names'] = names
-            data['number_of_cities'] = number_of_cities
-        m = m._repr_html_
-        data['m'] = m
-    except:
-        data['number_of_cities'] = 0
-        m = m._repr_html_
-        data['m'] = m
-    return render(request,"map1.html",context=data)
-def map1(request):
-    m = folium.Map()
-    data = dict()
-    #RESET CODE GOES HERE
-    try:
-        request.GET['city_list']
-        number_of_cities = int(request.GET['number_of_cities'])
-        visiting_cities = list()
-        for i in range(number_of_cities):
-            name = "city"+str(i)
-            city_name = request.GET[name]
-            visiting_cities.append(city_name)
-        m = support_functions.add_markers(m,visiting_cities)
-        data['visiting_cities'] = visiting_cities
-        m = m._repr_html_
-        data['m'] = m
-        return render(request,"map.html",data)
-    except:
-        pass
-    #CITY NAMES AND NUMBER OF CITIES CODE GOES HERE
-    return render(request,"map.html",context=data)
