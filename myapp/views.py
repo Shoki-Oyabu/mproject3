@@ -122,6 +122,12 @@ def result(request):
         data['low'] = round(ohlc.Low[-1],2)
         data['close'] = round(ohlc.Close[-1],2)
 
+        chart_title = found.name + ' price chart'
+        plt.clf()
+        ohlc.Close.plot(kind='line', title=chart_title, legend=True)
+        # plt.savefig('/static/' + 'chart.png')
+        # plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
+
         user = request.user
 
         if user.is_authenticated:
@@ -134,16 +140,9 @@ def result(request):
         return render(request, "notfound.html", context=data)
         pass
 
-    try:
-        plt.clf()
-        ohlc.Close.plot(kind='line',
-                        title=found.name + ' price chart',
-                        legend=True)
-        plt.savefig('/static/chart.png')
-        # plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
 
-    except:
-        pass
+
+
 
     return render(request, "result.html", context=data)
 
