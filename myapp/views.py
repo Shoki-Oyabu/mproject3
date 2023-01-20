@@ -4,6 +4,7 @@ import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from mproject2.settings import STATICFILES_DIRS
+from django.contrib.auth.models import User
 from myapp.models import AccountHolder
 
 
@@ -133,7 +134,7 @@ def result(request):
         user = request.user
         if user.is_authenticated:
             account_holder = AccountHolder.objects.get(user=user)
-            account_holder.stocks_visited.add(query)
+            account_holder.stocks_visited.add(Stock.objects.get(tick=query))
             data['stocks_visited'] = account_holder.stocks_visited.all()
     except:
         newthing = request.GET["ticker"].upper()
