@@ -125,7 +125,7 @@ def result(request):
         chart_title = found.name + ' price chart'
         plt.clf()
         ohlc.Close.plot(kind='line', title=chart_title, legend=True)
-        # plt.savefig('/static/' + 'chart.png')
+        plt.savefig('/static/chart111.png')
         # plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
 
         user = request.user
