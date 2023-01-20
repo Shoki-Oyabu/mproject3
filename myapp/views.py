@@ -169,11 +169,12 @@ def added(request):
     user = request.user
     target = request.GET["target"]
     if user.is_authenticated:
+        shares = request.GET["sharenum"]
         account_holder = AccountHolder.objects.get(user=user)
         account_holder.stocks_holding.add(Stock.objects.get(tick=target))
-        account_holder.num_shares.add(request.GET["sharenum"])
+        account_holder.shares.add(request.GET["sharenum"])
         data['holding'] = account_holder.stocks_holding.all()
-        data['num_shares'] = account_holder.num_shares.all()
+        data['num_shares'] = account_holder.shares.all()
         data['account_holder'] = account_holder
 
     else:
@@ -187,9 +188,32 @@ def usernotfound(request):
     return render(request, "usernotfound.html", context=data)
 
 def portfolio(request):
+    from myapp.models import Stock
+
     data = dict()
+    user = request.user
+    if user.is_authenticated:
+        account_holder = AccountHolder.objects.get(user=user)
+        data['account_holder'] = account_holder
+
+    else:
+        return render(request, "usernotfound.html", context=data)
+        pass
+
     return render(request, "portfolio.html", context=data)
 
+
 def backtest(request):
+    from myapp.models import Stock
+
     data = dict()
+    user = request.user
+    if user.is_authenticated:
+        account_holder = AccountHolder.objects.get(user=user)
+        data['account_holder'] = account_holder
+
+    else:
+        return render(request, "usernotfound.html", context=data)
+        pass
+
     return render(request, "backtest.html", context=data)

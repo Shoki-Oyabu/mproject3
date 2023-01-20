@@ -5,19 +5,22 @@
     <meta charset="UTF-8">
 </head>
 <body>
+{% block content %}
  <div class="jumbotron text-center">
         <p>Successfully added to the portfolio!</p>
     </div>
 Your portfolio
-<table>
+<table border="1" align="center">
     <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
     {% for c in account_holder %}
     <tr>
     <td>&nbsp;{{ account_holder.stocks_holding }}&nbsp;</td><td>{{ account_holder.num_shares }}</td><td>
     </tr>
     {% endfor %}
-
-
 </table>
+
+    <br><center><a href="{% url 'portfolio' %}">See Portfolio Return</a><br></center>
+
+{% endblock %}
 </body>
 </html>
