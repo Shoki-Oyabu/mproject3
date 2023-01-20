@@ -130,20 +130,15 @@ def result(request):
         #                legend=True)
         #plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
         #plt.savefig('/static/chart.png')
-
-    except:
-        newthing = request.GET["ticker"].upper()
-        data['ticker'] = newthing
-        return render(request, "notfound.html", context=data)
-        pass
-
-    try:
         user = request.user
         if user.is_authenticated:
             account_holder = AccountHolder.objects.get(user=user)
             account_holder.stocks_visited.add(query)
             data['stocks_visited'] = account_holder.stocks_visited.all()
     except:
+        newthing = request.GET["ticker"].upper()
+        data['ticker'] = newthing
+        return render(request, "notfound.html", context=data)
         pass
 
     return render(request, "result.html", context=data)

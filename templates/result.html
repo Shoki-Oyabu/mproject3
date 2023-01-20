@@ -38,16 +38,13 @@
 
 
                <img src='{% static "myapp/excuse.png" %}' width="400px" >
-
-
-
     </div>
 </div>
 
 <p>
     You have looked at the following stocks: <br>
     {% for c in stocks_visited %}
-    {{ c.tick }}<br>
+    {{ c }}<br>
     {% endfor %}
     </p>
 
