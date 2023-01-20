@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from mproject2.settings import STATICFILES_DIRS
 from django.contrib.auth.models import User
+
+from myapp import support_functions
 from myapp.models import AccountHolder
 
 
@@ -168,8 +170,41 @@ def register_new_user(request):
         return render(request, "registration/register.html", context=context)
 
 def map(request):
-    m = folium.Map()
-    m = m._repr_html_
+    m = folium.Map() #add import folium at the top of views.py
     data = dict()
-    data['m'] = m
+    try:
+        number_of_cities = int(request.GET["number_of_cities"])
+        if number_of_cities > 0:
+            names = list()
+            for i in range(number_of_cities):
+                names.append("city"+str(i))
+            data['names'] = names
+            data['number_of_cities'] = number_of_cities
+        m = m._repr_html_
+        data['m'] = m
+    except:
+        data['number_of_cities'] = 0
+        m = m._repr_html_
+        data['m'] = m
+    return render(request,"map1.html",context=data)
+def map1(request):
+    m = folium.Map()
+    data = dict()
+    #RESET CODE GOES HERE
+    try:
+        request.GET['city_list']
+        number_of_cities = int(request.GET['number_of_cities'])
+        visiting_cities = list()
+        for i in range(number_of_cities):
+            name = "city"+str(i)
+            city_name = request.GET[name]
+            visiting_cities.append(city_name)
+        m = support_functions.add_markers(m,visiting_cities)
+        data['visiting_cities'] = visiting_cities
+        m = m._repr_html_
+        data['m'] = m
+        return render(request,"map.html",data)
+    except:
+        pass
+    #CITY NAMES AND NUMBER OF CITIES CODE GOES HERE
     return render(request,"map.html",context=data)
