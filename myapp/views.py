@@ -3,7 +3,7 @@ from django.shortcuts import render
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from mproject2.settings import STATICFILES_DIR
+from mproject2.settings import STATICFILES_DIRS
 from myapp.models import AccountHolder
 
 
