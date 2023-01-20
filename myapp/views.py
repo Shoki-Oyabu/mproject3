@@ -124,14 +124,8 @@ def result(request):
         ohlc.Close.plot(kind='line',
                         title='Stock price chart',
                         legend=True)
-        try:
-            plt.savefig('/static/chart.png')
-        except:
-            try:
-                plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
-            except:
-                pass
-            pass
+        # plt.savefig('/static/chart.png')
+        # plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
 
         user = request.user
 
