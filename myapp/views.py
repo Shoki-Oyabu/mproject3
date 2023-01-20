@@ -131,6 +131,7 @@ def result(request):
                 plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
             except:
                 pass
+            pass
 
         user = request.user
 
