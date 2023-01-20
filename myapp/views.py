@@ -1,3 +1,4 @@
+import folium as folium
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 import datetime
@@ -104,8 +105,8 @@ def assignment(request):
 
 def result(request):
     from myapp.models import Stock
-    # import yfinance as yf
-    # import matplotlib.pyplot as plt
+    import yfinance as yf
+    import matplotlib.pyplot as plt
 
     data = dict()
     ticker_list = Stock.objects.all()
@@ -118,20 +119,27 @@ def result(request):
         data['name'] = found.name
         data['sector'] = found.sector
         data['country'] = found.country
-        #num_shares = yf.Ticker(query).shares.iloc[-1, 0]
-        #ohlc = yf.Ticker(query).history(period='100d')
-        #data['market_cap'] = round(num_shares * ohlc.Close[-1])
-        #data['open'] = round(ohlc.Open[-1],2)
-        #data['high'] = round(ohlc.High[-1],2)
-        #data['low'] = round(ohlc.Low[-1],2)
-        #data['close'] = round(ohlc.Close[-1],2)
-        #plt.clf()
-        #ohlc.Close.plot(kind='line',
-        #                title='Stock price chart',
-        #                legend=True)
-        #plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
-        #plt.savefig('/static/chart.png')
+        num_shares = yf.Ticker(query).shares.iloc[-1, 0]
+        ohlc = yf.Ticker(query).history(period='100d')
+        data['market_cap'] = round(num_shares * ohlc.Close[-1])
+        data['open'] = round(ohlc.Open[-1],2)
+        data['high'] = round(ohlc.High[-1],2)
+        data['low'] = round(ohlc.Low[-1],2)
+        data['close'] = round(ohlc.Close[-1],2)
+        plt.clf()
+        ohlc.Close.plot(kind='line',
+                        title='Stock price chart',
+                        legend=True)
+        try:
+            plt.savefig('/static/chart.png')
+        except:
+            try:
+                plt.savefig(r'C:\Users\Shoki\PycharmProjects\djangoProject\mproject2\static\chart.png')
+            except:
+                pass
+
         user = request.user
+
         if user.is_authenticated:
             account_holder = AccountHolder.objects.get(user=user)
             account_holder.stocks_visited.add(Stock.objects.get(tick=query))
@@ -158,3 +166,10 @@ def register_new_user(request):
         form = UserCreationForm()
         context['form'] = form
         return render(request, "registration/register.html", context=context)
+
+def map(request):
+    m = folium.Map()
+    m = m._repr_html_
+    data = dict()
+    data['m'] = m
+    return render(request,"map.html",context=data)
