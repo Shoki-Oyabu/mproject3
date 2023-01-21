@@ -84,10 +84,9 @@ def DBupdate(request):
     return render(request, "DBupdate.html", context=data)
 
 def test(request):
-    import csv
-    from myapp.models import Stock
-    from myapp.models import NumShares
-
+    #import csv
+    #from myapp.models import Stock
+    #from myapp.models import NumShares
     #for i in range(-1000,1000):
      #   number = NumShares(num=i)
       #  number.save()
@@ -98,7 +97,20 @@ def test(request):
 #        for row in reader:
 #            stock = Stock(tick=row[0], name=row[1],country=row[2] , IPO=row[3] , sector=row[4])
 #            stock.save()
-    return render(request, "test.html")
+
+    import praw
+    reddit = praw.Reddit(client_id='B-w6hy4i1uXMcnhIFMYY0g', client_secret='pr7MegU-3bft_Om26FUjlXpVX4p_MA',
+                         user_agent='Stock Search')
+    posts = []
+    data = {}
+    ticker = 'MMM'
+    ml_subreddit = reddit.subreddit('wallstreetbets')
+    for post in reddit.subreddit("wallstreetbets").search(ticker, time_filter="month"):
+        posts.append([post.title, post.score, post.id, post.url, post.num_comments])
+
+    data['reddit'] = posts
+
+    return render(request, "test.html", context = data)
 
 
 def result(request):
@@ -108,6 +120,7 @@ def result(request):
     import matplotlib.pyplot as plt
     import io
     import urllib, base64
+    import praw
 
     data = dict()
     ticker_list = Stock.objects.all()
@@ -121,7 +134,7 @@ def result(request):
         data['sector'] = found.sector
         data['country'] = found.country
         num_shares = yf.Ticker(query).shares.iloc[-1, 0]
-        ohlc = yf.Ticker(query).history(period='100d')
+        ohlc = yf.Ticker(query).history(period='1y')
         data['market_cap'] = round(num_shares * ohlc.Close[-1]/1000000)
         data['open'] = round(ohlc.Open[-1],2)
         data['high'] = round(ohlc.High[-1],2)
@@ -146,6 +159,16 @@ def result(request):
         data['ticker'] = newthing
         return render(request, "notfound.html", context=data)
         pass
+
+    reddit = praw.Reddit(client_id='B-w6hy4i1uXMcnhIFMYY0g', client_secret='pr7MegU-3bft_Om26FUjlXpVX4p_MA',
+                         user_agent='Stock Search')
+    posts = []
+
+    # ml_subreddit = reddit.subreddit('wallstreetbets')
+    for post in reddit.subreddit("wallstreetbets").search(query, time_filter="month"):
+        posts.append([post.title, post.score, post.id, post.url, post.num_comments])
+
+    data['reddit'] = posts
 
     return render(request, "result.html", context=data)
 

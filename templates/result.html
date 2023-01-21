@@ -8,7 +8,7 @@
 <body>
 {% block content %}
  <div class="jumbotron text-center">
-       <p> Search Result </p>
+       <p> Stock Price Data </p>
     </div>
 
 <div class="container" >
@@ -33,6 +33,30 @@
 
           <center><img src="data:image/png;base64,{{ uri }}" ></center>
 </div>
+
+
+<div>
+ <div class="jumbotron text-center">
+       <p>Top threads in WallSteetBets</p>
+    </div>
+
+
+    <table border="1" align="center">
+    <tr><td>&nbsp; Title &nbsp;</td><td>&nbsp; Score&nbsp; </td><td>&nbsp; id&nbsp; </td><td>&nbsp; Comment&nbsp; </td></tr>
+    {% for r in reddit %}
+    <tr>
+    <td>&nbsp;<a href="{{ r.3 }}"> {{ r.0 }}</a>  &nbsp;</td><td>&nbsp;{{ r.1 }}&nbsp;</td><td>&nbsp;{{ r.2 }}&nbsp;</td><td>&nbsp;{{ r.4 }}&nbsp;</td>
+    </tr>
+    {% endfor %}
+</table><br>
+</center>
+
+
+
+
+
+</div>
+
 
 <div class="jumbotron text-center">
         <p>Add to Your Portfolio</p>
