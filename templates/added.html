@@ -9,15 +9,7 @@
  <div class="jumbotron text-center">
         <p>Successfully added to the portfolio!</p>
     </div>
-    <center><h2>Your portfolio</h2></center>
-<table border="1" align="center">
-    <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
-    {% for p in portfolio %}
-    <tr>
-    <td>&nbsp;{{ p.0 }}&nbsp;</td><td>&nbsp;{{ p.1 }}&nbsp;</td><td>
-    </tr>
-    {% endfor %}
-</table>
+
 
     <br><center><a href="{% url 'home' %}">Add more stocks</a><br></center>
     <br><center><a href="{% url 'portfolio' %}">See Portfolio Return</a><br></center>

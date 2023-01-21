@@ -256,7 +256,7 @@ def backtest(request):
         num_list.append(sharenum)
         final_list.append([holding,sharenum])
 
-    price_data = yf.download(tickers=ticker_list,period='1y',interval='1d')
+    price_data = yf.download(tickers=ticker_list,period=days+'d',interval='1d')
     close_data = price_data.iloc[: , :len(ticker_list)]
     volume_adjusted = close_data * num_list
     volume_adjusted["allsum"] = volume_adjusted.sum(axis=1)

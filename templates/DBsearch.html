@@ -1,8 +1,9 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DB Search</title>
+
 
 <style>
 table, td, th {
@@ -20,7 +21,7 @@ td {
 </style>
 </head>
 <body>
-
+{% block content %}
 
 
 <h1>Database Search</h1>
@@ -70,6 +71,6 @@ This database is created based on the csv file downloaded <a href = "https://www
     {% endfor %}
 </table>
 
-
+{% endblock %}
 </body>
 </html>

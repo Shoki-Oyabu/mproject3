@@ -20,17 +20,6 @@ How many days do you want to backtest your portfolio?
 </center>
 
 
-<h3>Your portfolio</h3>
-
-<table border="1" align="center">
-    <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
-    {% for p in portfolio %}
-    <tr>
-    <td>&nbsp;{{ p.0 }}&nbsp;</td><td>&nbsp;{{ p.1 }}&nbsp;</td><td>
-    </tr>
-    {% endfor %}
-</table>
-
 
 
 {% endblock %}

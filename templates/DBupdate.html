@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +20,7 @@ td {
 </style>
 </head>
 <body>
-
+{% block content %}
 <h1>Update the Database</h1>
 
 Please enter the ticker code, the name of the company, Country, IPO year, and the sector of a new company.
@@ -82,6 +83,6 @@ This database is created based on the csv file downloaded <a href = "https://www
     {% endfor %}
 </table>
 
-
+{% endblock %}
 </body>
 </html>
