@@ -180,7 +180,7 @@ def added(request):
         account_holder.stocks_holding.add(Stock.objects.get(tick=target))
         account_holder.shares.add(NumShares.objects.get(num=shares))
         final_list=[]
-        num_shares_list = NumShares.objects.all()
+        num_shares_list = account_holder.shares.objects.all()
         for x in account_holder.stocks_holding.all():
             for y in range(len(num_shares_list)):
                 holding = x.tick
