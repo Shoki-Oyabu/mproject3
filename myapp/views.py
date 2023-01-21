@@ -172,7 +172,7 @@ def added(request):
         shares = request.GET["sharenum"]
         account_holder = AccountHolder.objects.get(user=user)
         account_holder.stocks_holding.add(Stock.objects.get(tick=target))
-        account_holder.shares.add(request.GET["sharenum"])
+        account_holder.shares.add(shares)
         data['holding'] = account_holder.stocks_holding.all()
         data['num_shares'] = account_holder.shares.all()
         data['account_holder'] = account_holder
