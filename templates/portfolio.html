@@ -7,25 +7,28 @@
 <body>
 {% block content %}
 
-    <div class=" text-center">
-<h3>See the performance</h3>
+   <div class="jumbotron text-center">
+See the portfolio performance
     </div><br>
-
+<h3>How many days do you want to backtest your portfolio?</h3>
    <form action="{% url 'backtest' %}" method="get">
     Number of days to show<br>
     <input type="text" name="days" id="days" value="" ><br>
     <input type="submit" name="submit" value="See the portfolio performance">
  </form>
 
+
+
 <h3>Your portfolio</h3>
+<center>Your portfolio</center>
 <table border="1" align="center">
     <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
-    {% for c in account_holder %}
+    {% for p in portfolio %}
     <tr>
-    <td>&nbsp;{{ account_holder.stocks_holding }}&nbsp;</td><td>{{ account_holder.shares }}</td><td>
+    <td>&nbsp;{{ p.0 }}&nbsp;</td><td>&nbsp;{{ p.1 }}&nbsp;</td><td>
     </tr>
     {% endfor %}
-</table>
+</table></table>
 
 
 

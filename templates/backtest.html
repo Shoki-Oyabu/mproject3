@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +8,16 @@
 <body>
 {% block content %}
 
+    <h3>Your portfolio Performance</h3>
+     <center><img src="data:image/png;base64,{{ uri }}" ></center>
 
 <h3>Your portfolio</h3>
+<center>Your portfolio</center>
 <table border="1" align="center">
     <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
-    {% for c in account_holder %}
+    {% for p in portfolio %}
     <tr>
-    <td>&nbsp;{{ account_holder.stocks_holding }}&nbsp;</td><td>{{ account_holder.shares }}</td><td>
+    <td>&nbsp;{{ p.0 }}&nbsp;</td><td>&nbsp;{{ p.1 }}&nbsp;</td><td>
     </tr>
     {% endfor %}
 </table>

@@ -34,6 +34,7 @@ urlpatterns = [
     path('usernotfound',views.usernotfound,name="usernotfound"),
     path('portfolio', views.portfolio, name='portfolio'),
     path('backtest', views.backtest, name='backtest'),
+    path('empty', views.empty, name='empty'),
     # path('map',views.map,name='map'),
 
 

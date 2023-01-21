@@ -220,21 +220,63 @@ def portfolio(request):
 
 def backtest(request):
     from myapp.models import Stock
-    import yfinance
+    from myapp.models import NumShares
+    import yfinance as yf
     from django.shortcuts import render
     import matplotlib.pyplot as plt
     import io
     import urllib, base64
+    import pandas as pd
 
     data = dict()
     user = request.user
-    if user.is_authenticated:
-        account_holder = AccountHolder.objects.get(user=user)
-        data['account_holder'] = account_holder
 
-
-    else:
+    if not user.is_authenticated:
         return render(request, "usernotfound.html", context=data)
+
+    account_holder = AccountHolder.objects.get(user=user)
+    days =request.GET["days"]
+    stocks_list = account_holder.stocks_holding.all()
+
+    if len(stocks_list) ==0:
+        return render(request, "empty.html")
+    else:
         pass
 
+    num_shares_list = account_holder.shares.all()
+
+    final_list = []
+    ticker_list=[]
+    num_list = []
+
+    for x in range(len(num_shares_list)):
+        holding = stocks_list[x].tick
+        sharenum = num_shares_list[x].num
+        ticker_list.append(holding)
+        num_list.append(sharenum)
+        final_list.append([holding,sharenum])
+
+    price_data = yf.download(tickers=ticker_list,period='1y',interval='1d')
+    close_data = price_data.iloc[: , :len(ticker_list)]
+    volume_adjusted = close_data * num_list
+    volume_adjusted["allsum"] = volume_adjusted.sum(axis=1)
+    volume_adjusted["percentage"] = 100 * volume_adjusted["allsum"] / volume_adjusted["allsum"][0]
+
+    plt.clf()
+    volume_adjusted["percentage"].plot(kind='line', title="Pertfolio Performance")
+    fig = plt.gcf()
+    buf = io.BytesIO()
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    string = base64.b64encode(buf.read())
+    uri = urllib.parse.quote(string)
+    data['uri'] = uri
+    data['portfolio'] = final_list
+
     return render(request, "backtest.html", context=data)
+
+def empty(request):
+    data =dict()
+
+    return render(request, "empty.html" , context=data)
+
