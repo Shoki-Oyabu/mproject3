@@ -88,9 +88,9 @@ def test(request):
     from myapp.models import Stock
     from myapp.models import NumShares
 
-    for i in range(-1000,1000):
-        number = NumShares(num=i)
-        number.save()
+    #for i in range(-1000,1000):
+     #   number = NumShares(num=i)
+      #  number.save()
 
 #    with open("/static/List_Equities.csv") as file:
 #        reader = csv.reader(file)
@@ -173,15 +173,24 @@ def added(request):
 
     data = dict()
     user = request.user
-    target = request.GET["target"]
     if user.is_authenticated:
         shares = request.GET["sharenum"]
+        target = request.GET["target"]
         account_holder = AccountHolder.objects.get(user=user)
         account_holder.stocks_holding.add(Stock.objects.get(tick=target))
         account_holder.shares.add(NumShares.objects.get(num=shares))
-        data['holding'] = account_holder.stocks_holding.all()
-        data['num_shares'] = account_holder.shares.all()
-        data['account_holder'] = account_holder
+        final_list=[]
+        num_shares_list = NumShares.objects.all()
+        for x in account_holder.stocks_holding.all():
+            for y in range(len(num_shares_list)):
+                holding = x.tick
+                sharenum = num_shares_list[y].num
+                final_list.append([holding,sharenum])
+
+        data['portfolio'] = final_list
+        #data['holding'] = account_holder.stocks_holding.all()
+        #data['num_shares'] = account_holder.shares.all()
+        #data['account_holder'] = account_holder
 
     else:
         return render(request, "usernotfound.html", context=data)
@@ -211,12 +220,18 @@ def portfolio(request):
 
 def backtest(request):
     from myapp.models import Stock
+    import yfinance
+    from django.shortcuts import render
+    import matplotlib.pyplot as plt
+    import io
+    import urllib, base64
 
     data = dict()
     user = request.user
     if user.is_authenticated:
         account_holder = AccountHolder.objects.get(user=user)
         data['account_holder'] = account_holder
+
 
     else:
         return render(request, "usernotfound.html", context=data)

@@ -60,7 +60,7 @@ class AccountHolder(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     date_of_birth = models.DateField()
     stocks_holding = models.ManyToManyField(Stock)
-    num_shares = models.CharField(max_length=10)
+    #num_shares = models.CharField(max_length=10)
     shares = models.ManyToManyField(NumShares)
     def __str__(self):
         return self.user.username

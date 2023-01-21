@@ -12,9 +12,9 @@
 Your portfolio
 <table border="1" align="center">
     <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
-    {% for c in account_holder %}
+    {% for p in portfolio %}
     <tr>
-    <td>&nbsp;{{ account_holder.stocks_holding }}&nbsp;</td><td>{{ account_holder.shares }}</td><td>
+    <td>&nbsp;{{ p.0 }}&nbsp;</td><td>{{ p.1 }}</td><td>
     </tr>
     {% endfor %}
 </table>
