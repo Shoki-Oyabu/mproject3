@@ -180,12 +180,12 @@ def added(request):
         account_holder.stocks_holding.add(Stock.objects.get(tick=target))
         account_holder.shares.add(NumShares.objects.get(num=shares))
         final_list=[]
-        num_shares_list = account_holder.shares.objects.all()
-        for x in account_holder.stocks_holding.all():
-            for y in range(len(num_shares_list)):
-                holding = x.tick
-                sharenum = num_shares_list[y].num
-                final_list.append([holding,sharenum])
+        num_shares_list = account_holder.shares.all()
+        stocks_list = account_holder.stocks_holding.all()
+        for x in range(len(num_shares_list)):
+            holding = stocks_list[x].tick
+            sharenum = num_shares_list[x].num
+            final_list.append([holding,sharenum])
 
         data['portfolio'] = final_list
         #data['holding'] = account_holder.stocks_holding.all()
