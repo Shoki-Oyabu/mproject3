@@ -86,7 +86,11 @@ def DBupdate(request):
 def test(request):
     import csv
     from myapp.models import Stock
+    from myapp.models import NumShares
 
+    for i in range(-1000,1000):
+        number = NumShares(num=number)
+        number.save()
 
 #    with open("/static/List_Equities.csv") as file:
 #        reader = csv.reader(file)
@@ -165,6 +169,8 @@ def register_new_user(request):
 
 def added(request):
     from myapp.models import Stock
+    from myapp.models import NumShares
+
     data = dict()
     user = request.user
     target = request.GET["target"]
@@ -172,7 +178,7 @@ def added(request):
         shares = request.GET["sharenum"]
         account_holder = AccountHolder.objects.get(user=user)
         account_holder.stocks_holding.add(Stock.objects.get(tick=target))
-        account_holder.shares.add(shares)
+        account_holder.shares.add(NumShares.objects.get(num=shares))
         data['holding'] = account_holder.stocks_holding.all()
         data['num_shares'] = account_holder.shares.all()
         data['account_holder'] = account_holder
