@@ -251,7 +251,7 @@ def backtest(request):
 
     for x in range(len(num_shares_list)):
         holding = stocks_list[x].tick
-        sharenum = num_shares_list[x].num
+        sharenum = int(num_shares_list[x].num)
         ticker_list.append(holding)
         num_list.append(sharenum)
         final_list.append([holding,sharenum])
