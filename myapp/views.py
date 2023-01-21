@@ -263,7 +263,7 @@ def backtest(request):
     volume_adjusted["percentage"] = 100 * volume_adjusted["allsum"] / volume_adjusted["allsum"][0]
 
     plt.clf()
-    volume_adjusted["percentage"].plot(kind='line', title="Pertfolio Performance")
+    volume_adjusted["percentage"].plot(kind='line', title="Portfolio Performance (%)")
     fig = plt.gcf()
     buf = io.BytesIO()
     fig.savefig(buf, format='png')

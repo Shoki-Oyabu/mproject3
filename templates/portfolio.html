@@ -9,19 +9,19 @@
 {% block content %}
 
    <div class="jumbotron text-center">
-See the portfolio performance
+How many days do you want to backtest your portfolio?
     </div><br>
-<h3>How many days do you want to backtest your portfolio?</h3>
+    <center>
    <form action="{% url 'backtest' %}" method="get">
     Number of days to show<br>
     <input type="text" name="days" id="days" value="" ><br>
     <input type="submit" name="submit" value="See the portfolio performance">
  </form>
-
+</center>
 
 
 <h3>Your portfolio</h3>
-<center>Your portfolio</center>
+
 <table border="1" align="center">
     <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
     {% for p in portfolio %}
@@ -29,7 +29,7 @@ See the portfolio performance
     <td>&nbsp;{{ p.0 }}&nbsp;</td><td>&nbsp;{{ p.1 }}&nbsp;</td><td>
     </tr>
     {% endfor %}
-</table></table>
+</table>
 
 
 

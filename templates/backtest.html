@@ -8,11 +8,11 @@
 <body>
 {% block content %}
 
-    <h3>Your portfolio Performance</h3>
+    <center><h3>Your portfolio Performance</h3>
      <center><img src="data:image/png;base64,{{ uri }}" ></center>
 
 <h3>Your portfolio</h3>
-<center>Your portfolio</center>
+
 <table border="1" align="center">
     <tr><td>&nbsp; Stock &nbsp;</td><td>&nbsp; Number of Shares&nbsp; </td></tr>
     {% for p in portfolio %}
@@ -21,7 +21,7 @@
     </tr>
     {% endfor %}
 </table>
-
+</center>
 {% endblock %}
 </body>
 </html>
