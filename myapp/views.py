@@ -89,7 +89,7 @@ def test(request):
     from myapp.models import NumShares
 
     for i in range(-1000,1000):
-        number = NumShares(num=number)
+        number = NumShares(num=i)
         number.save()
 
 #    with open("/static/List_Equities.csv") as file:
