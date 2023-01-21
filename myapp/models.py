@@ -48,14 +48,22 @@ class Rates(models.Model):
     def __str__(self):
         return self.currency.iso + " " + self.x_currency + " " + str(self.rate)
 
+class NumShares(models.Model):
+    num = models.CharField(max_length=50)
+    def __repr__(self):
+        return self.num
+    def __str__(self):
+        return self.num
+
 
 class AccountHolder(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     date_of_birth = models.DateField()
     stocks_holding = models.ManyToManyField(Stock)
     num_shares = models.CharField(max_length=10)
-    shares = models.CharField(max_length=10)
+    shares = models.ManyToManyField(NumShares)
     def __str__(self):
         return self.user.username
     def __repr__(self):
         return self.user.username
+
